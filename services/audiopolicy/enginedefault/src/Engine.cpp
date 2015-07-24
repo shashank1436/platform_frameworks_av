@@ -250,6 +250,10 @@ DeviceVector Engine::getDevicesForStrategyInt(legacy_strategy strategy,
                         AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES});
                 if (!devices.isEmpty()) break;
             }
+            if (getDpConnAndAllowedForVoice() && isInCall()) {
+                devices = availableOutputDevices.getDevicesFromType(AUDIO_DEVICE_OUT_AUX_DIGITAL);
+                if (!devices.isEmpty()) break;
+            }
             devices = availableOutputDevices.getFirstDevicesFromTypes({
                     AUDIO_DEVICE_OUT_WIRED_HEADPHONE, AUDIO_DEVICE_OUT_WIRED_HEADSET,
                     AUDIO_DEVICE_OUT_LINE, AUDIO_DEVICE_OUT_USB_HEADSET,
